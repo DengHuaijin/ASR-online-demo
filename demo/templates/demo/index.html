@@ -1,0 +1,57 @@
+<html>
+<head>
+	<title>asr demo</title>
+    <link rel="stylesheet" href="../../static/demo/CSS/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/demo/CSS/site.css">
+</head>
+
+<body>
+
+	<h1 align="center"> ASR demo </h1>
+    <div class="container">
+    	<div class="container-label">
+        	<ul>
+            	<li>
+                You could use your microphone to record audio 
+                by clicking the record button.
+            	</li>
+                <li>
+                You could upload pre-recorded audio file.
+                (.mp3, .wav,only).
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+    	<p></p>
+        <p></p>
+    	<p></p>
+        <p></p>
+        <p></p>
+    </div>
+    <div class="container body-content" id="form">
+    	<div class="container">
+        		<p>
+            		Language:
+                    <p>
+            		<select name="language">
+            			<option value="us_en">US English (trained by LibriSpeech)</option>
+                		<option value="jp">Japanese (trained by CSJ)</option>
+            		</select>
+                    </p>
+            	</p>
+            
+         		<p align="left">
+            		Model: 
+                    <p>  
+            		<select name="model">
+            			<option value="ds2">Deep Speech2</option>
+            		</select>
+                    </p>
+            	</p>
+    	 </div>
+    
+    </div>
+
+</body>
+</html>
