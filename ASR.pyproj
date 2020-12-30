@@ -72,6 +72,7 @@
     <Folder Include="demo\static\demo\" />
     <Folder Include="demo\static\demo\CSS\" />
     <Folder Include="demo\static\demo\image\" />
+    <Folder Include="demo\static\demo\scripts\" />
     <Folder Include="demo\templates\" />
     <Folder Include="demo\templates\demo\" />
   </ItemGroup>
@@ -81,6 +82,7 @@
     <Content Include="demo\static\demo\CSS\bootstrap.css">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="demo\static\demo\scripts\jquery-1.10.2.min.js" />
     <Content Include="demo\templates\demo\index.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />

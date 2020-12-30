@@ -3,8 +3,10 @@
 	<title>asr demo</title>
     <link rel="stylesheet" href="../../static/demo/CSS/bootstrap.min.css">
     <link rel="stylesheet" href="../../static/demo/CSS/site.css">
+    <script src="../../static/demo/scripts/jquery-1.10.2.min.js"></script>
+    <script src="../../static/demo/scripts/functions.js"></script>
 </head>
-
+      
 <body>
 
 	<h1 align="center"> ASR demo </h1>
@@ -31,26 +33,74 @@
     </div>
     <div class="container body-content" id="form">
     	<div class="container">
-        		<p>
+   		  <p>
             		Language:
-                    <p>
-            		<select name="language">
-            			<option value="us_en">US English (trained by LibriSpeech)</option>
-                		<option value="jp">Japanese (trained by CSJ)</option>
-            		</select>
-                    </p>
-            	</p>
+            <p>
+              <select name="language">
+                <option value="us_en">US English (trained by LibriSpeech)</option>
+                <option value="jp">Japanese (trained by CSJ)</option>
+              </select>
+            </p>
+          </p>
             
-         		<p align="left">
+         <p align="left">
             		Model: 
-                    <p>  
-            		<select name="model">
-            			<option value="ds2">Deep Speech2</option>
-            		</select>
-                    </p>
-            	</p>
-    	 </div>
+            <p>  
+              <select name="model">
+                <option value="ds2">Deep Speech2</option>
+              </select>
+            </p>
+         </p>
+        
+         <p>
+            		Disfluency detection model:
+            <p>
+              <select name="disfluency">
+                <option value="us_en">no choice</option>
+              </select>
+            </p>
+          </p>
+        
+        </div>
     
+        <div class="btn-group-lg" align="center">
+            <button type="button" id="record_btn" class="btn btn-default" style="width:150;outline:0">
+            	<span>
+					<img id="record_img" src="../../static/demo/image/recorder.png" class="icon-bar" width="30">
+                </span>
+                Record
+            </button>
+            
+            <button type="button" id="upload_btn" class="btn btn-default" style="width:150; outline:0">
+            	<span>
+					<img src="../../static/demo/image/upload.png" class="icon-bar" width="30">
+                </span>
+                Upload
+          	</button>
+            
+            <button type="button" id="play_btn" class="btn btn-default" style="width:150;outline:0">
+            	<span>
+					<img id="play_img" src="../../static/demo/image/play.png" class="icon-bar" width="30">
+                </span>
+            Play
+          	</button>
+        </div> 
+        
+        <div class="progress progress-striped active" style="margin-top:30px">
+    		<div class="progress-bar progress-bar-success" role="progressbar"
+         		aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"
+         		style="width: 70%;">
+        		<span class="sr-only">40% 完成</span>
+    		</div>
+		</div>
+        
+        <div class="panel panel-default" style="margin-top:30px">
+        	<div class="panel-heading">
+            	<h3>The recognized words will be displayed here:</h3>
+            </div>
+            <div class="panel-body">
+            </div>
+        </div>  
     </div>
 
 </body>
