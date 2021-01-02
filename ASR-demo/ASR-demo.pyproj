@@ -1,0 +1,123 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <Name>ASR-demo</Name>
+    <RootNamespace>ASR-demo</RootNamespace>
+    <WebBrowserPort>8088</WebBrowserPort>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>b1686ad7-7827-4a0d-b4f4-139795e09315</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <ProjectTypeGuids>{5F0BE9CA-D677-4A4D-8806-6076C0FAAD37};{349c5851-65df-11da-9384-00065b846f21};{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <StartupFile>manage.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <LaunchProvider>Django launcher</LaunchProvider>
+    <DjangoSettingsModule>ASR_demo.settings</DjangoSettingsModule>
+    <WebBrowserUrl>http://localhost</WebBrowserUrl>
+    <OutputPath>.</OutputPath>
+    <SuppressCollectPythonCloudServiceFiles>true</SuppressCollectPythonCloudServiceFiles>
+    <PythonRunWebServerCommandType />
+    <PythonDebugWebServerCommandType />
+    <PythonRunWebServerCommandArguments>runserver_plus --settings $(DjangoSettingsModule) %SERVER_PORT% $(CommandLineArguments) --cert server.crt</PythonRunWebServerCommandArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="demo\admin.py" />
+    <Compile Include="demo\apps.py" />
+    <Compile Include="demo\form.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="demo\migrations\__init__.py" />
+    <Compile Include="demo\models.py" />
+    <Compile Include="demo\tests.py" />
+    <Compile Include="demo\views.py" />
+    <Compile Include="demo\__init__.py" />
+    <Compile Include="manage.py" />
+    <Compile Include="ASR_demo\__init__.py" />
+    <Compile Include="ASR_demo\settings.py" />
+    <Compile Include="ASR_demo\urls.py" />
+    <Compile Include="ASR_demo\wsgi.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="demo\static\CSS\bootstrap.css" />
+    <Content Include="demo\static\CSS\bootstrap.min.css" />
+    <Content Include="demo\static\CSS\site.css" />
+    <Content Include="demo\static\image\play.png" />
+    <Content Include="demo\static\image\recorder.png" />
+    <Content Include="demo\static\image\stop.png" />
+    <Content Include="demo\static\image\upload.png" />
+    <Content Include="demo\static\scripts\bootstrap.js" />
+    <Content Include="demo\static\scripts\bootstrap.min.js" />
+    <Content Include="demo\static\scripts\functions.js" />
+    <Content Include="demo\static\scripts\jquery-1.10.2.min.js" />
+    <Content Include="demo\static\scripts\jquery.form.min.js" />
+    <Content Include="demo\static\scripts\Recorder.js" />
+    <Content Include="demo\templates\demo\index.html" />
+    <Content Include="requirements.txt" />
+    <Content Include="server.crt" />
+    <Content Include="server.key" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ASR_demo\" />
+    <Folder Include="demo\" />
+    <Folder Include="demo\migrations\" />
+    <Folder Include="demo\static\" />
+    <Folder Include="demo\static\CSS\" />
+    <Folder Include="demo\static\image\" />
+    <Folder Include="demo\static\upload\" />
+    <Folder Include="demo\static\scripts\" />
+    <Folder Include="demo\templates\" />
+    <Folder Include="demo\templates\demo\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Django.targets" />
+  <!-- Specify pre- and post-build commands in the BeforeBuild and 
+       AfterBuild targets below. -->
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <AutoAssignPort>True</AutoAssignPort>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
