@@ -68,8 +68,9 @@
     
         <div class="btn-group-lg" align="center">
             
-            <form action="/upload/" method="post" id="uploadForm" enctype="multipart/form-data">   
-            	<input type="file" id="audiofile" style="visibility:hidden"/>
+            <form method="POST" id="uploadForm" action="{% url 'form' %}" enctype="multipart/form-data">   
+            	<input type="file" id="audiofile" name="audiofile" value="audiofile" style="visibility:hidden"/>
+                <input type="submit" id="submit_btn" style="visibility:hidden"/>
   			</form>
             
             <button type="button" id="record_btn" class="btn btn-default" style="width:150px;outline:0">

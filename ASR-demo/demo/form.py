@@ -1,6 +1,6 @@
 import os
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse
 from django import forms
 from ASR_demo import settings
 
@@ -16,11 +16,10 @@ def handle_uploaded_file(f):
 
 def upload_file(request):
     if request.method == "POST":
-        return HttpResponse("POST")
         form = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            handle_uploaded_file(request.FILES['file'])
-            # return HttpResponseRedirect('/success/url/')
+        # if form.is_valid():
+        handle_uploaded_file(request.FILES['audiofile'])
+        return HttpResponseRedirect("/demo/")
     else:
         return HttpResponse(request.method) 
     return HttpResponse("OK")

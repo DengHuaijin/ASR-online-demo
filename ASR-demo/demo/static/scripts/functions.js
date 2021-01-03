@@ -65,7 +65,6 @@ $(function(){
 			rec_btn_cnt *= -1;
 			stop_reco();
 		}
-
 	});
 	
 	$("#play_btn").click(function(){
@@ -80,47 +79,47 @@ $(function(){
 			$("#play_img").attr("src", "../../static/image/play.png")
 			play_btn_cnt *= -1;
 		}
-
 	});	
 	
-	$("#upload_btn").click(function(){
+    $("#upload_btn").click(function(){
 		$("#audiofile").click();
 	});
 	
 	// dataType: json jsonp text script xml html String 
+ //   $("#audiofile").change(function(){
+ //   var formData = new FormData();
+	//file = $("#audiofile")[0].files[0];
+	//formData.append("file", file);
+	//formData.append("name", "audiofile");
+	//// alert(file);
+	//$.ajax({
+ //       url: $("#uploadForm").attr("action"),
+	//	type:"POST",
+	//	data:formData,
+	//	processData:false,
+	//	contentType:false,
+	//	success: function(){
+ //           alert($("#audiofile").attr("value"));
+	//		},
+ //       error: function () {
+ //           alert("Failed");
+ //       }
+	//	});
+	//});
+
 //	$("#audiofile").change(function(){
-//	var formData = new FormData();
-//	file = $("#audiofile")[0].files[0];
-//	formData.append("file", file);
-//	formData.append("name", "audiofile");
-//	/*alert(file);*/
-//	$.ajax({
-//		url:"/demo/",
-//		type:"POST",
-//		data:formData,
-//		processData:false,
-//		contentType:false,
-//		success: function(){
-//			window.location.href="/demo/upload/";
+//        $("#uploadForm").ajaxSubmit({
+//			success: function(){
+//               //alert($("#audiofile").attr("value"));
 //			},
-//		error: function(){alert("failed");}
+//			error: function(){
+//				alert("Failed");
+//			}
 //		});
 //	});
 
-	$("#audiofile").change(function(){
-		if($("#audiofile").val() == ""){
-			return;}	
-		$("#uploadForm").ajaxSubmit({
-			type:"post",
-			dataType:"",
-			success: function(){
-				//$("#audiofile").val("");
-				alert("ajaxSubmit succeed");
-				window.location.href = "/upload/";
-			},
-			error: function(){
-				alert("Failed");
-			}
-		});
-	});
+ $("#audiofile").change(function() {
+        $("#submit_btn").click();
+    });
+
 });

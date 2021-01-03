@@ -3,7 +3,7 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <Name>ASR-demo</Name>
     <RootNamespace>ASR-demo</RootNamespace>
-    <WebBrowserPort>8088</WebBrowserPort>
+    <WebBrowserPort>8080</WebBrowserPort>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -22,7 +22,7 @@
     <SuppressCollectPythonCloudServiceFiles>true</SuppressCollectPythonCloudServiceFiles>
     <PythonRunWebServerCommandType />
     <PythonDebugWebServerCommandType />
-    <PythonRunWebServerCommandArguments>runserver_plus --settings $(DjangoSettingsModule) %SERVER_PORT% $(CommandLineArguments) --cert server.crt</PythonRunWebServerCommandArguments>
+    <PythonRunWebServerCommandArguments>runserver --settings $(DjangoSettingsModule) %SERVER_PORT% $(CommandLineArguments)</PythonRunWebServerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -64,6 +64,9 @@
     <Content Include="demo\static\scripts\jquery.form.min.js" />
     <Content Include="demo\static\scripts\Recorder.js" />
     <Content Include="demo\templates\demo\index.html" />
+    <Content Include="demo\templates\demo\upload.php">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="requirements.txt" />
     <Content Include="server.crt" />
     <Content Include="server.key" />
