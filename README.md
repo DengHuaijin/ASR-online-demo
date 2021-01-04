@@ -6,4 +6,3 @@
 
 ## ![demo](https://media.giphy.com/media/GiVhZFsRwYHs0ygnPM/giphy.gif)
 
-## ![](preview.PNG)
