@@ -4,4 +4,6 @@
 
 ## Django+JS (VS2017 Project)
 
-## ![](preview.GIF)
+## ![demo](://media.giphy.com/media/GiVhZFsRwYHs0ygnPM/giphy.gif)
+
+## ![](preview.PNG)
