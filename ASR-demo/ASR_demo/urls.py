@@ -22,5 +22,6 @@ urlpatterns = [
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
     url(r"^demo/$", demo.views.demo, name = "demo"),
-    url(r"^demo/upload/$", demo.form.upload_file, name = "form")
+    url(r"^demo/upload/$", demo.form.upload_file, name = "form"),
+    url(r"^demo/record/$", demo.form.record_file, name = "record")
 ]

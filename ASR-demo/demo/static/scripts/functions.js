@@ -27,16 +27,17 @@ function stop_reco() {
 	formData.append("audio", wav_file);
 	formData.append("name", "recordfile");
 	$.ajax({
-		url: "http://localhost:8080/",
+		url: "/demo/record/",
 		type: 'POST',
 		processData: false,
 		contentType: false,
 		data: formData,
 		success: function (data) {
-			console.log(data);
-			window.location.href("https://localhost:8080/record/");
+            alert("audio uploaded");
 			},
-		error: function(){alert("audio upload error");}
+        error: function () {
+            alert("Failed");
+        }
 		})
   	});
 	reco.clear();	
@@ -107,16 +108,16 @@ $(function(){
 	//	});
 	//});
 
-//	$("#audiofile").change(function(){
-//        $("#uploadForm").ajaxSubmit({
-//			success: function(){
-//               //alert($("#audiofile").attr("value"));
-//			},
-//			error: function(){
-//				alert("Failed");
-//			}
-//		});
-//	});
+	//$("#audiofile").change(function(){
+ //       $("#uploadForm").ajaxSubmit({
+	//		success: function(){
+ //              //alert($("#audiofile").attr("value"));
+	//		},
+	//		error: function(){
+	//			alert("Failed");
+	//		}
+	//	});
+	//});
 
  $("#audiofile").change(function() {
         $("#submit_btn").click();

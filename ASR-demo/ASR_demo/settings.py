@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    'werkzeug_debugger_runserver',
+    # 'werkzeug_debugger_runserver',
 ]
 
 MIDDLEWARE = [
@@ -129,3 +129,5 @@ STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "demo", "static", "upload")
 APPEND_SLASH = False
+
+ASR_ROOT = os.path.join(BASE_DIR, "End-to-End-ASR")
