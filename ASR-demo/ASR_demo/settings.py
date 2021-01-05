@@ -26,7 +26,7 @@ SECRET_KEY = 'c929edeb-341e-4fa1-a96a-85277bdf3525'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["8.136.104.182"]
 
 
 # Application definition
@@ -124,10 +124,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
-
 STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "demo", "static", "upload")
+
 APPEND_SLASH = False
 
 ASR_ROOT = os.path.join(BASE_DIR, "End-to-End-ASR")

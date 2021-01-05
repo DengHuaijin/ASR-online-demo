@@ -14,7 +14,11 @@ framework.
 
 """
 import os
+import sys
+from os.path import join,dirname,abspath
 
+PROJECT_DIR = dirname(dirname(abspath(__file__)))
+sys.path.insert(0, PROJECT_DIR)
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "ASR_demo.settings")
 
 # This application object is used by any WSGI server configured to use this
