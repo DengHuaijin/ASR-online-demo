@@ -26,7 +26,7 @@ SECRET_KEY = 'c929edeb-341e-4fa1-a96a-85277bdf3525'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["8.136.104.182"]
+ALLOWED_HOSTS = ["8.136.104.182", "speechdemo.top"]
 
 
 # Application definition
