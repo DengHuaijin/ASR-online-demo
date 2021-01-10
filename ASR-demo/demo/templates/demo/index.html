@@ -7,7 +7,6 @@
     <script src="../../static/scripts/jquery-1.10.2.min.js"></script>
     <script src="../../static/scripts/functions.js"></script>
     <script src="../../static/scripts/Recorder.js"></script>
-    <script src="../../static/scripts/jquery.form.min.js"></script>  
 </head>
       
 <body>
@@ -71,11 +70,11 @@
             <form method="POST" id="uploadForm" action="{% url 'form' %}" enctype="multipart/form-data">   
             	<input type="file" id="audiofile" name="audiofile" value="audiofile" style="visibility:hidden"/>
                 <input type="submit" id="submit_btn" style="visibility:hidden"/>
-  			</form>
+  	    </form>
             
             <button type="button" id="record_btn" class="btn btn-default" style="width:150px;outline:0">
             	<span>
-					<img id="record_img" src="../../static/image/recorder.png" class="icon-bar" width="30">
+		    <img id="record_img" src="../../static/image/recorder.png" class="icon-bar" width="30">
                 </span>
                 Record
             </button>
@@ -89,16 +88,16 @@
             
             <button type="button" id="play_btn" class="btn btn-default" style="width:150px;outline:0">
             	<span>
-					<img id="play_img" src="../../static/image/play.png" class="icon-bar" width="30">
+		    <img id="play_img" src="../../static/image/play.png" class="icon-bar" width="30">
                 </span>
             	Play
           	</button>
         </div> 
         
-        <div class="progress progress-striped active" style="margin-top:30px">
-    		<div class="progress-bar progress-bar-success" role="progressbar"
+        <div class="progress progress-striped active" style="margin-top:10px">
+    		<div class="progress-bar progress-bar-success" id="bar" role="progressbar"
          		aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"
-         		style="width: 70%;">
+         		style="width: 0%;">
         		<span class="sr-only">40% 完成</span>
     		</div>
 		</div>

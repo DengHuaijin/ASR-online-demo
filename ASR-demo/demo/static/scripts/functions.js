@@ -1,47 +1,122 @@
 // JavaScript Document
 
-var rec_btn_cnt = 1;
-var play_btn_cnt = 1;
-var reco = null;
-var audio_context = new AudioContext();
-
-navigator.getUserMedia = (navigator.getUserMedia ||
-	navigator.webkitGetUserMedia ||
-	navigator.mozGetUserMedia ||
-	navigator.msGetUserMedia); 
-
-function create_stream(user_media){
-	var stream_input = audio_context.createMediaStreamSource(user_media);
-	reco = new Recorder(stream_input);	
+//************************** CSRF COOKIE **************************//
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
 }
 
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+const csrftoken = getCookie('csrftoken');
+//************************** CSRF COOKIE **************************//
+
+var rec_btn_cnt = 1;
+var play_btn_cnt = 1;
+
+//************************** RECORD **************************//
+function __log(e, data) {
+    //log.innerHTML += "\n" + e + " " + (data || '');
+    console.log("\n" + e + " " + (data || ''));
+}
+
+var reco;
+var audio_context;
+
+function create_stream(user_media) {
+    var stream_input = audio_context.createMediaStreamSource(user_media);
+    __log("Media stream created")
+    reco = new Recorder(stream_input);
+    __log("Recorder initialized");
+}
+
+window.onload = function init() {
+    try {
+        window.AudioContext = window.AudioContext || window.webkitAudioContext;
+        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
+        window.URL = window.URL || window.webkitURL;
+        audio_context = new AudioContext();
+        __log("Audio context set up");
+        __log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
+    } catch (e) {
+        alert("No web audio support in this browser!");
+    }
+    navigator.getUserMedia({ audio: { volume: 1.0 }, video: false }, create_stream, function (e) {
+        __log('No live audio input: ' + e);
+    });
+};
+
 function start_reco() {
-	reco.record();
+    $("#wav_div").empty();
+    window.history.pushState("/demo/")
+    reco && reco.record();
+    __log("Recording...");
 }
 
 function stop_reco() {
-	reco.stop();
-	reco.exportWAV(function (wav_file) {
-	console.log(wav_file);
-	var formData = new FormData(); 
-	formData.append("audio", wav_file);
-	formData.append("name", "recordfile");
-	$.ajax({
-		url: "/demo/record/",
-		type: 'POST',
-		processData: false,
-		contentType: false,
-		data: formData,
-		success: function (data) {
-            alert("audio uploaded");
-			},
-        error: function () {
-            alert("Failed");
-        }
-		})
-  	});
-	reco.clear();	
+    reco && reco.stop();
+    __log("Stopped recording");
+    reco.exportWAV(function (blob) {
+        var formAudio = new FormData();
+        formAudio.append("audio", blob);
+        formAudio.append("name", "recordfile");
+
+        var url = window.URL.createObjectURL(blob);
+
+        $("<audio>").attr({
+            id: "audio_control"
+        }).appendTo("#wav_div");
+
+        $("#audio_control").attr("controls", true);
+        $("#audio_control").attr("src", url);
+
+        //*************
+        //const request = new Request(
+        //    "/demo/record/", {
+        //        headers: { 'X-CSRFToken': csrftoken }
+        //    });
+
+        //fetch(request, {
+        //    method: 'POST',
+        //    body: formAudio,
+        //    mode: 'same-origin'  // Do not send CSRF token to another domain.
+        //}).then(function (response) { return response.formData(); });
+
+        $.ajax({
+            url: "/demo/record/",
+            type: 'POST',
+            async: false,
+            cache: false,
+            processData: false,
+            contentType: false,
+            data: formAudio,
+            success: function (context) {
+                // alert(context["text"])
+                $("#display").html(context["text"]);
+            },
+            error: function () {
+                alert("Failed");
+            }
+        });
+        //*************
+    });
+    reco.clear();
 }
+//************************** RECORD **************************//
 
 $(function(){
 	$("#record_btn").click(function(){
@@ -51,9 +126,6 @@ $(function(){
 			$(this).css("background-color", "#E71D32");	
 			$(this).css("color", "#FFF");
 			$("#record_img").attr("src", "../../static/image/stop.png");
-			
-			navigator.getUserMedia({audio: true}, create_stream, function (err) {
-			console.log(err)});
 						
 			rec_btn_cnt *= -1;	
 			start_reco();			
@@ -83,44 +155,14 @@ $(function(){
 	});	
 	
     $("#upload_btn").click(function(){
-		$("#audiofile").click();
+        $("#audiofile").click();
 	});
 	
-	// dataType: json jsonp text script xml html String 
- //   $("#audiofile").change(function(){
- //   var formData = new FormData();
-	//file = $("#audiofile")[0].files[0];
-	//formData.append("file", file);
-	//formData.append("name", "audiofile");
-	//// alert(file);
-	//$.ajax({
- //       url: $("#uploadForm").attr("action"),
-	//	type:"POST",
-	//	data:formData,
-	//	processData:false,
-	//	contentType:false,
-	//	success: function(){
- //           alert($("#audiofile").attr("value"));
-	//		},
- //       error: function () {
- //           alert("Failed");
- //       }
-	//	});
-	//});
-
-	//$("#audiofile").change(function(){
- //       $("#uploadForm").ajaxSubmit({
-	//		success: function(){
- //              //alert($("#audiofile").attr("value"));
-	//		},
-	//		error: function(){
-	//			alert("Failed");
-	//		}
-	//	});
-	//});
-
- $("#audiofile").change(function() {
+    $("#audiofile").change(function () {
         $("#submit_btn").click();
+        for (i = 0; i <= 1000; i++) {
+            $("#bar").attr("style", "width:" + String(i/10) + "%");
+        }
     });
 
 });
