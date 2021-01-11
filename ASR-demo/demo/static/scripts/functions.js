@@ -39,6 +39,7 @@ var audio_context;
 
 function create_stream(user_media) {
     var stream_input = audio_context.createMediaStreamSource(user_media);
+    audio_context.resume();
     __log("Media stream created")
     reco = new Recorder(stream_input);
     __log("Recorder initialized");
@@ -47,22 +48,38 @@ function create_stream(user_media) {
 window.onload = function init() {
     try {
         window.AudioContext = window.AudioContext || window.webkitAudioContext;
-        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
+        if (navigator.mediaDevices === undefined) {
+            navigator.mediaDevices = {};
+        }
+        if (navigator.mediaDevices.getUserMedia === undefined) {
+            navigator.mediaDevices.getUserMedia = function (constraints) {
+                let getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
+                if (!getUserMedia) {
+                    return Promise.reject(new Error("getUserMedia is not implemented in this browser"))
+                }
+                return new Promise(function (resolve, reject) {
+                    getUserMedia.call(navigator, constraints, resolve, reject);
+                });
+            }
+        }
         window.URL = window.URL || window.webkitURL;
-        audio_context = new AudioContext();
+        audio_context = new AudioContext;
         __log("Audio context set up");
         __log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
     } catch (e) {
         alert("No web audio support in this browser!");
     }
-    navigator.getUserMedia({ audio: { volume: 1.0 }, video: false }, create_stream, function (e) {
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(function (user_media) {
+        create_stream(user_media)
+    })
+    .catch(function(e) {
         __log('No live audio input: ' + e);
     });
 };
 
 function start_reco() {
     $("#wav_div").empty();
-    window.history.pushState("/demo/")
+    //window.history.pushState("/demo/")
     reco && reco.record();
     __log("Recording...");
 }
@@ -95,17 +112,16 @@ function stop_reco() {
         //    body: formAudio,
         //    mode: 'same-origin'  // Do not send CSRF token to another domain.
         //}).then(function (response) { return response.formData(); });
-
         $.ajax({
             url: "/demo/record/",
             type: 'POST',
-            async: false,
+            async: true,
             cache: false,
             processData: false,
             contentType: false,
             data: formAudio,
             success: function (context) {
-                // alert(context["text"])
+                $("#bar").attr("style", "width:" + String(0) + "%");
                 $("#display").html(context["text"]);
             },
             error: function () {
@@ -125,17 +141,17 @@ $(function(){
 		{
 			$(this).css("background-color", "#E71D32");	
 			$(this).css("color", "#FFF");
-			$("#record_img").attr("src", "../../static/image/stop.png");
-						
-			rec_btn_cnt *= -1;	
+			$("#record_img").attr("src", "../../static/image/stop.png");						
+            rec_btn_cnt *= -1;
 			start_reco();			
 		}
 		else if(rec_btn_cnt == -1)
-		{
+        {
+            $("#bar").attr("style", "width:" + String(100) + "%");
 			$(this).css("background-color", "#FFF");
 			$(this).css("color", "#000");
 			$("#record_img").attr("src", "../../static/image/recorder.png");
-			rec_btn_cnt *= -1;
+            rec_btn_cnt *= -1;
 			stop_reco();
 		}
 	});
