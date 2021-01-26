@@ -7,8 +7,19 @@
     <script src="../../static/scripts/jquery-1.10.2.min.js"></script>
     <script src="../../static/scripts/functions.js"></script>
     <script src="../../static/scripts/Recorder.js"></script>
+		<script type="text/javascript">
+			function languageChange() {
+					if ($("#language").val() == "en") {
+							$("#model").val("ds2");
+					}
+					else if ($("#language").val() == "jp") {
+							$("#model").val("gmm");
+					}
+			}
+		</script>
+
 </head>
-      
+
 <body>
 
 	<h1 align="center"> ASR demo </h1>
@@ -16,98 +27,106 @@
     	<div class="container-label">
         	<ul>
             	<li>
-                You could use your microphone to record audio 
-                by clicking the record button.
+                You could use your microphone to record audio
+                by clicking the record button.(English, Japanses)
             	</li>
                 <li>
                 You could upload pre-recorded audio file.
-                (.mp3, .wav,only).
+                (.wav file only)(English).
                 </li>
             </ul>
         </div>
     </div>
+
     <div class="row">
     	<p></p>
-        <p></p>
     </div>
+
     <div class="container body-content" id="form">
     	<div class="container">
-   		  <p>
-            		Language:
+   	    <p>
+            Language
             <p>
-              <select name="language">
-                <option value="us_en">US English (trained by LibriSpeech)</option>
-                <option value="jp">Japanese (trained by CSJ)</option>
+              <select name="language" id="language" onChange="languageChange()">
+                <option value="en">English</option>
+                <option value="jp">Japanese</option>
               </select>
             </p>
-          </p>
-            
-         <p align="left">
-            		Model: 
-            <p>  
-              <select name="model">
+        </p>
+
+        <p align="left">
+            Model (English: DeepSpeech2 ; Japanese: GMM-HMM)
+            <p>
+              <select name="model" disabled id="model">
                 <option value="ds2">Deep Speech2</option>
+                <option value="gmm">GMM-HMM</option>
               </select>
             </p>
-         </p>
-        
-         <p>
-            		Disfluency detection model:
+        </p>
+
+        <p>
+            		Disfluency detection model
             <p>
-              <select name="disfluency">
+              <select name="disfluency" id="disfluency">
                 <option value="us_en">no choice</option>
               </select>
             </p>
-          </p>
-        
+        </p>
+
         </div>
-    
+
         <div class="btn-group-lg" align="center">
-            
-            <form method="POST" id="uploadForm" action="{% url 'form' %}" enctype="multipart/form-data">   
+
+            <form method="POST" id="uploadForm" action="{% url 'form' %}" enctype="multipart/form-data">
             	<input type="file" id="audiofile" name="audiofile" value="audiofile" style="visibility:hidden"/>
                 <input type="submit" id="submit_btn" style="visibility:hidden"/>
-  	    </form>
-            
+  			</form>
+
+            <!-- <form method="POST" id="recordForm" action="{% url 'record' %}" enctype="multipart/form-data">
+                <input type="submit" id="submit_rec_btn" style="visibility:hidden"/>
+            </form>-->
+
             <button type="button" id="record_btn" class="btn btn-default" style="width:150px;outline:0">
             	<span>
-		    <img id="record_img" src="../../static/image/recorder.png" class="icon-bar" width="30">
+					<img id="record_img" src="../../static/image/recorder.png" class="icon-bar" width="30">
                 </span>
                 Record
             </button>
-             
+
             <button type="button" id="upload_btn" class="btn btn-default" style="width:150px; outline:0">
                 <span>
                     <img src="../../static/image/upload.png" class="icon-bar" width="30">
                 </span>
                 Upload
-            </button>            
-            
+            </button>
+
             <button type="button" id="play_btn" class="btn btn-default" style="width:150px;outline:0">
             	<span>
-		    <img id="play_img" src="../../static/image/play.png" class="icon-bar" width="30">
+					<img id="play_img" src="../../static/image/play.png" class="icon-bar" width="30">
                 </span>
             	Play
           	</button>
-        </div> 
-        
+        </div>
+
+        <div class="container" id="wav_div" align="center" style="margin-top:20px"></div>
+
         <div class="progress progress-striped active" style="margin-top:10px">
     		<div class="progress-bar progress-bar-success" id="bar" role="progressbar"
          		aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"
          		style="width: 0%;">
-        		<span class="sr-only">40% 完成</span>
+        		<span class="sr-only"></span>
     		</div>
 		</div>
-        
+
         <div class="panel panel-default" style="margin-top:30px">
         	<div class="panel-heading">
             	<h3>The recognized words will be displayed here:</h3>
             </div>
-            <div class="panel-body">
+            <div id ="display" class="panel-body">
                 {{ text }}
             </div>
-        </div> 
-        
+        </div>
+
     </div>
 
 </body>

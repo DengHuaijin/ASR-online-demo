@@ -87,10 +87,13 @@ function start_reco() {
 function stop_reco() {
     reco && reco.stop();
     __log("Stopped recording");
+    __log($("#language").val());
+    language = $("#language").val();
     reco.exportWAV(function (blob) {
         var formAudio = new FormData();
-        formAudio.append("audio", blob);
+	formAudio.append("audio", blob);
         formAudio.append("name", "recordfile");
+        formAudio.append("language", language);
 
         var url = window.URL.createObjectURL(blob);
 
@@ -116,7 +119,7 @@ function stop_reco() {
             url: "/demo/record/",
             type: 'POST',
             async: true,
-            cache: false,
+	    cache: false,
             processData: false,
             contentType: false,
             data: formAudio,
@@ -135,45 +138,46 @@ function stop_reco() {
 //************************** RECORD **************************//
 
 $(function(){
+
 	$("#record_btn").click(function(){
 		/* alert($(this).css("background-color")) */
 		if(rec_btn_cnt == 1)
 		{
-			$(this).css("background-color", "#E71D32");	
+			$(this).css("background-color", "#E71D32");
 			$(this).css("color", "#FFF");
-			$("#record_img").attr("src", "../../static/image/stop.png");						
-            rec_btn_cnt *= -1;
-			start_reco();			
+			$("#record_img").attr("src", "../../static/image/stop.png");
+            		rec_btn_cnt *= -1;
+			start_reco();
 		}
 		else if(rec_btn_cnt == -1)
-        {
-            $("#bar").attr("style", "width:" + String(100) + "%");
+        	{
+            		$("#bar").attr("style", "width:" + String(100) + "%");
 			$(this).css("background-color", "#FFF");
 			$(this).css("color", "#000");
 			$("#record_img").attr("src", "../../static/image/recorder.png");
-            rec_btn_cnt *= -1;
+            		rec_btn_cnt *= -1;
 			stop_reco();
 		}
 	});
-	
+
 	$("#play_btn").click(function(){
-		/* alert($(this).css("background-color")) */
+    //__log($("#language").val());
 		if(play_btn_cnt == 1)
 		{
 			$("#play_img").attr("src", "../../static/image/stop.png")
-			play_btn_cnt *= -1;				
+			play_btn_cnt *= -1;
 		}
 		else if(play_btn_cnt == -1)
 		{
 			$("#play_img").attr("src", "../../static/image/play.png")
 			play_btn_cnt *= -1;
 		}
-	});	
-	
+	});
+
     $("#upload_btn").click(function(){
         $("#audiofile").click();
 	});
-	
+
     $("#audiofile").change(function () {
         $("#submit_btn").click();
         for (i = 0; i <= 1000; i++) {

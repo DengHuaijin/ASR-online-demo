@@ -26,7 +26,7 @@ SESSION_COOKIE_SECURE = False
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["8.136.104.182", "speechdemo.top", "127.0.0.1"]
+ALLOWED_HOSTS = ["8.136.104.182", "127.0.0.1", "www.speechdemo.top", "speechdemo.top"]
 
 # Application definition
 
@@ -73,6 +73,41 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'ASR_demo.wsgi.application'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'standard': {
+            'format': '%(asctime)s %(levelname)-8s %(message)s'
+        },
+        'detail': {
+            'format': '%(asctime)s %(levelname)-8s %(pathname)s[line:%(lineno)d] %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'standard',
+        },
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': '/var/log/django/django.log',
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB
+            'backupCount': 100,
+            'formatter': 'detail',
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+            'propagate': True,
+        }
+    }
+ }
 
 
 # Database
