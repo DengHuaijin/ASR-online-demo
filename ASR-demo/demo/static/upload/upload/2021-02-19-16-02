@@ -1,0 +1,5 @@
+{
+   "error": "Stream was 0 bytes but needs to be at least 100 bytes.",
+   "code": 400,
+   "code_description": "Bad Request"
+}

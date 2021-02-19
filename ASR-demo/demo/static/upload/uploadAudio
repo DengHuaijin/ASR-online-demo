@@ -1,2 +1,0 @@
-curl -X POST -u "apikey:86MYTsm1Z-jYr8t29Xp6n4u6gmehsY0uuywtpWnR2Zfy" --header "Content-Type: audio/flac" --data-binary @20191006_161143_01.flac "https://gateway-tok.watsonplatform.net/speech-to-text/api/v1/recognize?model=ja-JP_BroadbandModel" 
-pause
