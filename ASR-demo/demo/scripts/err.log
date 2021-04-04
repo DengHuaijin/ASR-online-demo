@@ -1,0 +1,31 @@
+compute-fbank-feats --write-utt2dur=ark,t:/home/ASR-online-demo/ASR-demo/demo/static/upload/kaldi/nnet/Chinese/log/utt2dur_opt --verbose=2 --config=/home/kaldi-master/egs/thchs30/online/conf/fbank.conf scp,p:/home/ASR-online-demo/ASR-demo/demo/static/upload/kaldi/nnet/Chinese/wav.scp ark:- 
+copy-feats --write-num-frames=ark,t:/home/ASR-online-demo/ASR-demo/demo/static/upload/kaldi/nnet/Chinese/log/utt2num_frames ark:- ark,scp:/home/ASR-online-demo/ASR-demo/demo/static/upload/kaldi/nnet/Chinese/data/raw_fbank.ark,/home/ASR-online-demo/ASR-demo/demo/static/upload/kaldi/nnet/Chinese/data/raw_fbank.scp 
+VLOG[2] (compute-fbank-feats[5.5]:main():compute-fbank-feats.cc:182) Processed features for key kaldiAudio
+LOG (compute-fbank-feats[5.5]:main():compute-fbank-feats.cc:185)  Done 1 out of 1 utterances.
+LOG (copy-feats[5.5]:main():copy-feats.cc:143) Copied 1 feature matrices.
+compute-cmvn-stats --spk2utt=ark:/home/kaldi-master/egs/thchs30/online/data/spk2utt scp:/home/ASR-online-demo/ASR-demo/demo/static/upload/kaldi/nnet/Chinese/data/raw_fbank.scp ark,scp:/home/ASR-online-demo/ASR-demo/demo/static/upload/kaldi/nnet/Chinese/data/cmvn/cmvn.ark,/home/ASR-online-demo/ASR-demo/demo/static/upload/kaldi/nnet/Chinese/data/cmvn/cmvn.scp 
+LOG (compute-cmvn-stats[5.5]:main():compute-cmvn-stats.cc:171) Done accumulating CMVN stats for 1 utterances; 0 had errors.
+nnet-forward --no-softmax=true --prior-scale=1.0 --feature_transform=/home/kaldi-master/egs/thchs30/online/model/final.feature_transform --class-frame-counts=/home/kaldi-master/egs/thchs30/online/model/ali_train_pdf.counts --use_gpu=no /home/kaldi-master/egs/thchs30/online/model/final.nnet 'ark:copy-feats scp:/home/ASR-online-demo/ASR-demo/demo/static/upload/kaldi/nnet/Chinese/data/raw_fbank.scp ark:- | apply-cmvn --norm-means=true --norm-vars=false --utt2spk=ark:/home/kaldi-master/egs/thchs30/online/data/utt2spk scp:/home/ASR-online-demo/ASR-demo/demo/static/upload/kaldi/nnet/Chinese/data/cmvn/cmvn.scp ark:- ark:- |' ark:/home/ASR-online-demo/ASR-demo/demo/static/upload/kaldi/nnet/Chinese/model/output.ark 
+LOG (nnet-forward[5.5]:main():nnet-forward.cc:93) Removing <Softmax> from the nnet /home/kaldi-master/egs/thchs30/online/model/final.nnet
+LOG (nnet-forward[5.5]:PdfPrior():nnet-pdf-prior.cc:34) Computing pdf-priors from : /home/kaldi-master/egs/thchs30/online/model/ali_train_pdf.counts
+LOG (nnet-forward[5.5]:PdfPrior():nnet-pdf-prior.cc:64) Floored 0 pdf-priors (hard-set to 1.84467e+19, which disables DNN output when decoding)
+apply-cmvn --norm-means=true --norm-vars=false --utt2spk=ark:/home/kaldi-master/egs/thchs30/online/data/utt2spk scp:/home/ASR-online-demo/ASR-demo/demo/static/upload/kaldi/nnet/Chinese/data/cmvn/cmvn.scp ark:- ark:- 
+copy-feats scp:/home/ASR-online-demo/ASR-demo/demo/static/upload/kaldi/nnet/Chinese/data/raw_fbank.scp ark:- 
+LOG (copy-feats[5.5]:main():copy-feats.cc:143) Copied 1 feature matrices.
+LOG (apply-cmvn[5.5]:main():apply-cmvn.cc:162) Applied cepstral mean normalization to 1 utterances, errors on 0
+LOG (nnet-forward[5.5]:main():nnet-forward.cc:192) Done 1 files in 0.00295966min, (fps 5411.37)
+latgen-faster-mapped --min-active=200 --max-active=7000 --max-mem=50000000 --beam=18.0 --lattice-beam=10.0 --acoustic-scale=0.1 --allow-partial=true --word-symbol-table=/home/kaldi-master/egs/thchs30/online/data/words.txt /home/kaldi-master/egs/thchs30/online/model/final.mdl /home/kaldi-master/egs/thchs30/online/model/HCLG.fst ark:/home/ASR-online-demo/ASR-demo/demo/static/upload/kaldi/nnet/Chinese/model/output.ark ark:/home/ASR-online-demo/ASR-demo/demo/static/upload/kaldi/nnet/Chinese/lattice 
+kaldiAudio 苏 北京 的 一些 爱国 将士 马 占 山 一度 唐 据 武 苏 并 爱 邓 铁 煤 等 也 奋起 抗战 
+LOG (latgen-faster-mapped[5.5]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:375) Log-like per frame for utterance kaldiAudio is 2.50314 over 961 frames.
+LOG (latgen-faster-mapped[5.5]:main():latgen-faster-mapped.cc:164) Time taken 8.9827s: real-time factor assuming 100 frames/sec is 0.934725
+LOG (latgen-faster-mapped[5.5]:main():latgen-faster-mapped.cc:167) Done 1 utterances, failed for 0
+LOG (latgen-faster-mapped[5.5]:main():latgen-faster-mapped.cc:169) Overall log-likelihood per frame is 2.50314 over 961 frames.
+lattice-scale --inv-acoustic-scale=15 ark:/home/ASR-online-demo/ASR-demo/demo/static/upload/kaldi/nnet/Chinese/lattice ark:- 
+lattice-best-path --word-symbol-table=/home/kaldi-master/egs/thchs30/online/data/words.txt ark:- ark,t:/home/ASR-online-demo/ASR-demo/demo/static/upload/kaldi/nnet/Chinese/word_ids 
+lattice-add-penalty --word-ins-penalty=0.5 ark:- ark:- 
+LOG (lattice-scale[5.5]:main():lattice-scale.cc:107) Done 1 lattices.
+LOG (lattice-add-penalty[5.5]:main():lattice-add-penalty.cc:62) Done adding word insertion penalty to 1 lattices.
+LOG (lattice-best-path[5.5]:main():lattice-best-path.cc:99) For utterance kaldiAudio, best cost 264.854 + -1770.9 = -1506.04 over 961 frames.
+kaldiAudio 苏 北京 的 一些 爱国 将士 马 占 山 一度 唐 剧务 苏 比 艾 邓 铁 煤 等 也 奋起 抗战 
+LOG (lattice-best-path[5.5]:main():lattice-best-path.cc:124) Overall cost per frame is -1.56716 = 0.275603 [graph] + -1.84277 [acoustic] over 961 frames.
+LOG (lattice-best-path[5.5]:main():lattice-best-path.cc:128) Done 1 lattices, failed for 0

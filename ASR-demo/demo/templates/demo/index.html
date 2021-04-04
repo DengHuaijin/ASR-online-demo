@@ -15,6 +15,9 @@
 					else if ($("#language").val() == "jp") {
 							$("#model").val("gmm");
 					}
+					else if ($("#language").val() == "cn") {
+							$("#model").val("gmm");
+					}
 			}
 		</script>
 
@@ -32,7 +35,7 @@
             	</li>
                 <li>
                 You could upload pre-recorded audio file.
-                (.wav file only)(English).
+                (.wav file only).
                 </li>
             </ul>
         </div>
@@ -50,6 +53,7 @@
               <select name="language" id="language" onChange="languageChange()">
                 <option value="en">English</option>
                 <option value="jp">Japanese</option>
+								<option value="cn">Chinese</option>
               </select>
             </p>
         </p>
@@ -79,8 +83,9 @@
 
             <form method="POST" id="uploadForm" action="{% url 'form' %}" enctype="multipart/form-data">
             	<input type="file" id="audiofile" name="audiofile" value="audiofile" style="visibility:hidden"/>
-                <input type="submit" id="submit_btn" style="visibility:hidden"/>
-  			</form>
+							<!-- <input type="text" id="language_form" name="language_form" style="visibility:hidden"/> -->
+              <input type="submit" id="submit_btn" style="visibility:hidden"/>
+  					</form>
 
             <!-- <form method="POST" id="recordForm" action="{% url 'record' %}" enctype="multipart/form-data">
                 <input type="submit" id="submit_rec_btn" style="visibility:hidden"/>

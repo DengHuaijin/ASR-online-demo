@@ -91,7 +91,7 @@ function stop_reco() {
     language = $("#language").val();
     reco.exportWAV(function (blob) {
         var formAudio = new FormData();
-	formAudio.append("audio", blob);
+	      formAudio.append("audio", blob);
         formAudio.append("name", "recordfile");
         formAudio.append("language", language);
 
@@ -119,7 +119,7 @@ function stop_reco() {
             url: "/demo/record/",
             type: 'POST',
             async: true,
-	    cache: false,
+	          cache: false,
             processData: false,
             contentType: false,
             data: formAudio,
@@ -179,6 +179,8 @@ $(function(){
 	});
 
     $("#audiofile").change(function () {
+        //$("#language_form").val($("#language").val());
+        //__log("language_form: " + $("#language").val());
         $("#submit_btn").click();
         for (i = 0; i <= 1000; i++) {
             $("#bar").attr("style", "width:" + String(i/10) + "%");

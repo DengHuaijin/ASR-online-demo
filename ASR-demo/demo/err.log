@@ -1,9 +1,0 @@
-lattice-best-path --word-symbol-table=/home/kaldi-master/egs/csj/online_demo/online-data/models/nnet3/words.txt ark:- ark,t:/home/ASR-online-demo/ASR-demo/demo/static/upload/kaldi/nnet3/word_ids 
-lattice-scale --inv-acoustic-scale=10 'ark:gunzip -c /home/ASR-online-demo/ASR-demo/demo/static/upload/kaldi/nnet3/lat.gz|' ark:- 
-lattice-add-penalty --word-ins-penalty=0.0 ark:- ark:- 
-LOG (lattice-scale[5.5]:main():lattice-scale.cc:107) Done 1 lattices.
-LOG (lattice-add-penalty[5.5]:main():lattice-add-penalty.cc:62) Done adding word insertion penalty to 1 lattices.
-LOG (lattice-best-path[5.5]:main():lattice-best-path.cc:99) For utterance kaldiAudio, best cost 154.667 + -498.109 = -343.441 over 154 frames.
-kaldiAudio ん+感動詞 <sp> あっ+感動詞 <sp> 顧問+名詞 を+助詞/格助詞 <sp> お+感動詞 
-LOG (lattice-best-path[5.5]:main():lattice-best-path.cc:124) Overall cost per frame is -2.23014 = 1.00433 [graph] + -3.23447 [acoustic] over 154 frames.
-LOG (lattice-best-path[5.5]:main():lattice-best-path.cc:128) Done 1 lattices, failed for 0

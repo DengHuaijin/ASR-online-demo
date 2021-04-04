@@ -30,12 +30,21 @@ def handle_uploaded_file(f, filename):
 @csrf_exempt
 def upload_file(request):
     if request.method == "POST":
+        # language = request.POST["language_form"]
         curtime = datetime.today().strftime("%Y-%m-%d-%H-%M-%S")
         form = UploadFileForm(request.POST, request.FILES)
-        audio_file = handle_uploaded_file(request.FILES['audiofile'], "upload/" + curtime+".wav")
-        text = tasks.recognition_ds2(audio_file)
-        # text = "This it's the online speech recognition demo"
-        # text = tasks.recognition_e2e(audio_file)
+        text = "Something wrong with your uploaded file"
+        language = "cn"
+        if language == "en":
+            audio_file = handle_uploaded_file(request.FILES['audiofile'], "upload/English/" + curtime+".wav")
+            text = tasks.recognition_ds2(audio_file)
+        elif language == "jp":
+            audio_file = handle_uploaded_file(request.FILES['audiofile'], "upload/Japanese/" + curtime+".wav")
+            text = tasks.recognition_nnet3_jp(audio_file, curtime)
+        elif  language == "cn":
+            audio_file = handle_uploaded_file(request.FILES['audiofile'], "upload/Chinese/" + curtime+".wav")
+            text = tasks.recognition_nnet_cn(audio_file, curtime)
+
         context = {"text": text}
         response = views.demo(request, context)
         return response
