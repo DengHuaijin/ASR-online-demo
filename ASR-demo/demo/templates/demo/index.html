@@ -59,7 +59,7 @@
         </p>
 
         <p align="left">
-            Model (English: DeepSpeech2 &nbsp;&nbsp; Japanese: kaldi nnet3)
+            Model (English: DeepSpeech2 &nbsp;&nbsp; Japanese: kaldi nnet3 &nbsp;&nbsp; Chinese: kaldi nnet)
             <p>
               <select name="model" disabled id="model">
                 <option value="ds2">Deep Speech2</option>
@@ -83,7 +83,7 @@
 
             <form method="POST" id="uploadForm" action="{% url 'form' %}" enctype="multipart/form-data">
             	<input type="file" id="audiofile" name="audiofile" value="audiofile" style="visibility:hidden"/>
-							<!-- <input type="text" id="language_form" name="language_form" style="visibility:hidden"/> -->
+		<!-- <input type="text" id="language_form" name="language_form" value="" style="visibility:hidden"/> -->
               <input type="submit" id="submit_btn" style="visibility:hidden"/>
   					</form>
 

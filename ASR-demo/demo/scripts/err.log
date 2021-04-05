@@ -13,19 +13,21 @@ apply-cmvn --norm-means=true --norm-vars=false --utt2spk=ark:/home/kaldi-master/
 copy-feats scp:/home/ASR-online-demo/ASR-demo/demo/static/upload/kaldi/nnet/Chinese/data/raw_fbank.scp ark:- 
 LOG (copy-feats[5.5]:main():copy-feats.cc:143) Copied 1 feature matrices.
 LOG (apply-cmvn[5.5]:main():apply-cmvn.cc:162) Applied cepstral mean normalization to 1 utterances, errors on 0
-LOG (nnet-forward[5.5]:main():nnet-forward.cc:192) Done 1 files in 0.00295966min, (fps 5411.37)
+LOG (nnet-forward[5.5]:main():nnet-forward.cc:192) Done 1 files in 0.00480392min, (fps 5162.28)
 latgen-faster-mapped --min-active=200 --max-active=7000 --max-mem=50000000 --beam=18.0 --lattice-beam=10.0 --acoustic-scale=0.1 --allow-partial=true --word-symbol-table=/home/kaldi-master/egs/thchs30/online/data/words.txt /home/kaldi-master/egs/thchs30/online/model/final.mdl /home/kaldi-master/egs/thchs30/online/model/HCLG.fst ark:/home/ASR-online-demo/ASR-demo/demo/static/upload/kaldi/nnet/Chinese/model/output.ark ark:/home/ASR-online-demo/ASR-demo/demo/static/upload/kaldi/nnet/Chinese/lattice 
-kaldiAudio 苏 北京 的 一些 爱国 将士 马 占 山 一度 唐 据 武 苏 并 爱 邓 铁 煤 等 也 奋起 抗战 
-LOG (latgen-faster-mapped[5.5]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:375) Log-like per frame for utterance kaldiAudio is 2.50314 over 961 frames.
-LOG (latgen-faster-mapped[5.5]:main():latgen-faster-mapped.cc:164) Time taken 8.9827s: real-time factor assuming 100 frames/sec is 0.934725
+kaldiAudio 该 智 残 人 认为 党性 的 希 布 芮 年长 一二 不能 亏待 原则 靠 稳 准 的 上海 牌 切除 热 但 其余 安妮 去 追赶 上来 著名 的 人 在 无私 的 旁门左道 公司 赞成 
+LOG (latgen-faster-mapped[5.5]:RebuildRepository():determinize-lattice-pruned.cc:287) Rebuilding repository.
+LOG (latgen-faster-mapped[5.5]:RebuildRepository():determinize-lattice-pruned.cc:287) Rebuilding repository.
+LOG (latgen-faster-mapped[5.5]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:375) Log-like per frame for utterance kaldiAudio is 1.92908 over 1488 frames.
+LOG (latgen-faster-mapped[5.5]:main():latgen-faster-mapped.cc:164) Time taken 33.654s: real-time factor assuming 100 frames/sec is 2.26169
 LOG (latgen-faster-mapped[5.5]:main():latgen-faster-mapped.cc:167) Done 1 utterances, failed for 0
-LOG (latgen-faster-mapped[5.5]:main():latgen-faster-mapped.cc:169) Overall log-likelihood per frame is 2.50314 over 961 frames.
+LOG (latgen-faster-mapped[5.5]:main():latgen-faster-mapped.cc:169) Overall log-likelihood per frame is 1.92908 over 1488 frames.
 lattice-scale --inv-acoustic-scale=15 ark:/home/ASR-online-demo/ASR-demo/demo/static/upload/kaldi/nnet/Chinese/lattice ark:- 
-lattice-best-path --word-symbol-table=/home/kaldi-master/egs/thchs30/online/data/words.txt ark:- ark,t:/home/ASR-online-demo/ASR-demo/demo/static/upload/kaldi/nnet/Chinese/word_ids 
 lattice-add-penalty --word-ins-penalty=0.5 ark:- ark:- 
+lattice-best-path --word-symbol-table=/home/kaldi-master/egs/thchs30/online/data/words.txt ark:- ark,t:/home/ASR-online-demo/ASR-demo/demo/static/upload/kaldi/nnet/Chinese/word_ids 
 LOG (lattice-scale[5.5]:main():lattice-scale.cc:107) Done 1 lattices.
 LOG (lattice-add-penalty[5.5]:main():lattice-add-penalty.cc:62) Done adding word insertion penalty to 1 lattices.
-LOG (lattice-best-path[5.5]:main():lattice-best-path.cc:99) For utterance kaldiAudio, best cost 264.854 + -1770.9 = -1506.04 over 961 frames.
-kaldiAudio 苏 北京 的 一些 爱国 将士 马 占 山 一度 唐 剧务 苏 比 艾 邓 铁 煤 等 也 奋起 抗战 
-LOG (lattice-best-path[5.5]:main():lattice-best-path.cc:124) Overall cost per frame is -1.56716 = 0.275603 [graph] + -1.84277 [acoustic] over 961 frames.
+LOG (lattice-best-path[5.5]:main():lattice-best-path.cc:99) For utterance kaldiAudio, best cost 366.004 + -2137.98 = -1771.98 over 1488 frames.
+kaldiAudio 该 知情 认为 党性 的 留言 障碍 而 不能 亏待 坚持 靠 稳 准 的 上海 牌 撮合 但 其余 安妮 去 追赶 上来 革命 赈灾 物资 的 旁门左道 公司 章程 
+LOG (lattice-best-path[5.5]:main():lattice-best-path.cc:124) Overall cost per frame is -1.19084 = 0.245971 [graph] + -1.43682 [acoustic] over 1488 frames.
 LOG (lattice-best-path[5.5]:main():lattice-best-path.cc:128) Done 1 lattices, failed for 0

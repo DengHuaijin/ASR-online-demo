@@ -138,7 +138,6 @@ function stop_reco() {
 //************************** RECORD **************************//
 
 $(function(){
-
 	$("#record_btn").click(function(){
 		/* alert($(this).css("background-color")) */
 		if(rec_btn_cnt == 1)
@@ -161,7 +160,6 @@ $(function(){
 	});
 
 	$("#play_btn").click(function(){
-    //__log($("#language").val());
 		if(play_btn_cnt == 1)
 		{
 			$("#play_img").attr("src", "../../static/image/stop.png")
@@ -179,8 +177,7 @@ $(function(){
 	});
 
     $("#audiofile").change(function () {
-        //$("#language_form").val($("#language").val());
-        //__log("language_form: " + $("#language").val());
+      	$("#language_form").val($("#language").val());
         $("#submit_btn").click();
         for (i = 0; i <= 1000; i++) {
             $("#bar").attr("style", "width:" + String(i/10) + "%");

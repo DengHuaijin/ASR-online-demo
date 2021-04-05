@@ -34,7 +34,7 @@ def upload_file(request):
         curtime = datetime.today().strftime("%Y-%m-%d-%H-%M-%S")
         form = UploadFileForm(request.POST, request.FILES)
         text = "Something wrong with your uploaded file"
-        language = "cn"
+        language = "en"
         if language == "en":
             audio_file = handle_uploaded_file(request.FILES['audiofile'], "upload/English/" + curtime+".wav")
             text = tasks.recognition_ds2(audio_file)
@@ -57,15 +57,15 @@ def record_file(request):
         language = request.POST["language"]
         curtime = datetime.today().strftime("%Y-%m-%d-%H-%M-%S")
         if language == "en":
-            audio_file = handle_uploaded_file(request.FILES['audio'], "record/" + curtime+".wav")
-            # text = "English online speech recognition demo"
+            audio_file = handle_uploaded_file(request.FILES['audio'], "record/English/" + curtime+".wav")
             text = tasks.recognition_ds2(audio_file)
         elif language == "jp":
-            audio_file = handle_uploaded_file(request.FILES['audio'], "kaldi/kaldiAudio.wav")
-            text = tasks.recognition_kaldi()
-            # text = "Japanese online speech recognition demo"
-        else:
-            text = "recognition failed"
+            audio_file = handle_uploaded_file(request.FILES['audio'], "record/Japanese/" + curtime+".wav")
+            text = tasks.recognition_nnet3_jp(audio_file, curtime)
+        elif language == "cn":
+            audio_file = handle_uploaded_file(request.FILES['audio'], "record/Chinese/" + curtime+".wav")
+            text = tasks.recognition_nnet_cn(audio_file, curtime)
+        
         context = {"text": text}
         return JsonResponse(context)
     else:
